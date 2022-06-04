@@ -3,24 +3,42 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        int [] a = {1,5,8,-777,160,-13,-33,23,35,9,-666,777};
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите левую границу функции: ");
+        int l = scanner.nextInt();
+        System.out.println();
+        System.out.print("Введите правую границу функции: ");
+        int r = scanner.nextInt();
+        System.out.println();
 
-        System.out.println(ternMax(0,5,0.1));
-        System.out.println(ternMin(-2,5,0.1));
+        double xMax = ternMax(l,r,0.1);
+        double maxValue = f(xMax);
+
+        double xMin = ternMin(l,r,0.1);
+        double minValue = f(xMin);
+
+        System.out.println("Значение X для максимального занчения функции " + Math.round(xMax));
+        System.out.println("Максимальное значение функции "+ Math.round(maxValue));
+
+        System.out.println("Значение X для минимального занчения функции " + Math.round(xMin));
+        System.out.println("Минимальное значение функции "+ Math.round(minValue));
+
 
     }
 
+
+
     //функция параболы, для которой проводятся поиски экстремумов
     public static double f(double x){
-        return x*x;
+        return -x*x;
     }
 
 
     //поиск минимума заданной функции f()
     public static double ternMin(double l , double r, double eps){
-        double m1, m2;
+        double m1, m2; // объявление двух точке на промежутке от правой и левой границы на функции
         while (r - l > eps){
-             m1 = l + (r-l)/3;
+             m1 = l + (r-l)/3; // присвоение координат точкам относительно границ
              m2 = r - (r-l)/3;
              if(f(m1)<f(m2))
                  r = m2;
